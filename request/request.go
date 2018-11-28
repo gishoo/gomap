@@ -2,10 +2,8 @@ package request
 
 import (
     "fmt"
-    "net/http"
-    "io/ioutil"
     "os"
-
+    "github.com/anaskhan96/soup"
     )
 
 //needed
@@ -15,22 +13,10 @@ import (
 //should be
 //func libRequest(headers, proxy, url)
 
-func Get(){
-    response, err := http.Get("http://golang.org/")
+func Get(addr){
+    resp, err := soup.Get(addr)
     if err != nil {
         fmt.Printf("%s", err)
-        os.Exit(1)
-    } else {
-        defer response.Body.Close()
-        contents, err := ioutil.ReadAll(response.Body)
-        if err != nil {
-            fmt.Printf("%s", err)
-            os.Exit(1)
-        }
-        fmt.Printf("%s\n", string(contents))
-    }/*
-    resp, err := soup.Get("https://xkcd.com")
-    if err != nil {
         os.Exit(1)
     }
     doc := soup.HTMLParse(resp)
@@ -38,5 +24,5 @@ func Get(){
     for _, link := range links {
         fmt.Println(link.Text(), "| Link :", link.Attrs()["href"])
     }
-    */
+
 }
